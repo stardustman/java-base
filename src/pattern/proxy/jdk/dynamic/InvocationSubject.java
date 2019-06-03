@@ -3,6 +3,11 @@ package pattern.proxy.jdk.dynamic;
 import java.lang.reflect.InvocationHandler;
 import java.lang.reflect.Method;
 
+/**
+ * 根据这个类 提供给 java.lang.reflect.Proxy.newProxyInstance 这个方法使用生成 代理类.
+ * @author young
+ *
+ */
 public class InvocationSubject implements InvocationHandler {
     Subject target;
 
@@ -10,6 +15,7 @@ public class InvocationSubject implements InvocationHandler {
         target = subject;
     }
 
+    //
     public Object invoke(Object proxy, Method method, Object[] args)
             throws Throwable {
         System.out.println("log : " + method.getName() + " invoked with " + args);

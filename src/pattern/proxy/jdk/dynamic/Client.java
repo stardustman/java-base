@@ -1,6 +1,7 @@
 package pattern.proxy.jdk.dynamic;
 ////https://zhuanlan.zhihu.com/p/26193963
 
+
 /**
  * 使用动态代理的五大步骤
 1.通过实现InvocationHandler接口来自定义自己的InvocationHandler;
@@ -16,10 +17,13 @@ package pattern.proxy.jdk.dynamic;
  *
  */
 public class Client {
-    public static void main(String args[]) {
+    public static void main(String args[])  {
     	
-    	//System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+    	System.getProperties().put("sun.misc.ProxyGenerator.saveGeneratedFiles", "true");
+    	
         dynamicProxy();
+        
+
         
     }
 
@@ -27,9 +31,15 @@ public class Client {
     	//target要被代理的对象
         Subject realSubject = new RealSubject();
         //动态就是相对于静态不用手写Proxy类了啊,都特么用代码生成. 2,3,4
+        
+        //生成的代理类 也就是 $Proxy0
         Subject proxy = (Subject)java.lang.reflect.Proxy.newProxyInstance(
                 realSubject.getClass().getClassLoader(),//new InvocationSubject(realSubject) realSubject就是要被代理的target
                 realSubject.getClass().getInterfaces(), new InvocationSubject(realSubject));
+        
+        //$Proxy0 的 request 方法, 可以看出此时调用的 request 方法根本就不是RealSubject的.
+        System.out.println(proxy.getClass()); //class com.sun.proxy.$Proxy0
         proxy.request(1);
+        proxy.response(100);
     }
 }
