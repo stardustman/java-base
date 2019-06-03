@@ -1,5 +1,6 @@
 package memory;
-//https://www.geeksforgeeks.org/lru-cache-implementation/
+// https://www.geeksforgeeks.org/lru-cache-implementation/
+
 /* We can use Java inbuilt Deque as a double 
 ended queue to store the cache keys, with 
 the descending time of reference from front 
@@ -60,7 +61,7 @@ public class LRUCache {
 			//删除
 			dq.remove(index); 
 		} 
-		//加到队首
+		//加到队首 ,recently
 		dq.push(x);
 		// 最后结果都是 cache
 		map.add(x); 
